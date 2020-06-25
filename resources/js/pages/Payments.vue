@@ -23,10 +23,11 @@
                 </v-toolbar>
             </template>
             <template v-slot:item.actions="{ item }">
-                <v-btn color="black" x-small dark
+                <v-btn outlined color="indigo" x-small dark
                 :to="{ name:'abonoView', params:{id:item.id}}"
                 >
-                    abrir
+                <v-icon left>mdi-eye</v-icon>
+                    Ver
                 </v-btn>
             </template>
             <template>

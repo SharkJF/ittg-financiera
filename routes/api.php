@@ -23,9 +23,10 @@ Route::middleware('auth:sanctum')->post('/clients', 'ClienteControlador@store');
 Route::middleware('auth:sanctum')->put('/clients/edit/{id}', 'ClienteControlador@update');
 Route::middleware('auth:sanctum')->post('/clients/{id}', 'ClienteControlador@destroy');
 Route::middleware('auth:sanctum')->post('/clients/info', 'ClienteControlador@show');
-Route::middleware('auth:sanctum')->post('/clients/import', 'ClienteControlador@ImportExcel');
 
-Route::middleware('auth:sanctum')->post('/home/noclientes', 'HomeController@index');
+Route::middleware('auth:sanctum')->post('/import-excel-personas', 'ClienteControlador@ImportExcel');
+
+Route::middleware('auth:sanctum')->get('/home/noclientes', 'HomeController@index');
 
 
 Route::middleware('auth:sanctum')->get('/loans', 'PrestamoControlador@index');
@@ -37,8 +38,8 @@ Route::middleware('auth:sanctum')->get('/payments', 'PagoControlador@index');
 Route::middleware('auth:sanctum')->get('/payments/table', 'PagoControlador@regresarTable');
 Route::middleware('auth:sanctum')->put('/payments/abono/{id}', 'PagoControlador@abonar');
 Route::middleware('auth:sanctum')->get('/payments/{id}', 'PagoControlador@show');
+Route::middleware('auth:sanctum')->get('/payments/info/{id}', 'PagoControlador@giveInfo');
 
-Route::middleware('auth:sanctum')->get('/info', 'UsuarioControlador@edit');
 
 
 

@@ -15,7 +15,7 @@
     <v-card-subtitle>
       <div>No. Control: 16270798</div>
       <div>Carrera: Ingeniería en sistemas computacionales</div>
-      <div>Materia: Programación web con framworks</div>
+      <div>Materia: Programación web con frameworks</div>
     </v-card-subtitle>
   </v-card>
 </template>

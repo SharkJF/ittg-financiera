@@ -10,7 +10,7 @@ import Clients from '@/js/pages/Clients';
 import Loans from '@/js/pages/Loans';
 import Payments from '@/js/pages/Payments';
 import abonoView from '@/js/components/abonoView';
-import userEdit from '@/js/pages/userEdit';
+
 
 Vue.use(VueRouter);
 

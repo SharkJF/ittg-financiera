@@ -31,6 +31,7 @@
                  placeholder="Name"
                  type="text" 
                  :rules="nameRules"
+                 prepend-icon="mdi-format-text"
                  required>
                 </v-text-field>
               </v-col>
@@ -40,6 +41,7 @@
                  label="Telefono" 
                  type="number"
                  placeholder="Phone" 
+                 prepend-icon="mdi-phone"
                  outlined
                  :rules="phoneRules"
                  required>
@@ -51,6 +53,7 @@
                  label="Direccion" 
                  type="text" 
                  placeholder="Address" 
+                 prepend-icon="mdi-map-marker"
                  outlined
                  :rules="addressRules"
                  required>
@@ -60,13 +63,13 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn outlined color="indigo" text @click="cerrar">Cancelar</v-btn>
+          <v-btn outlined color="indigo" text @click="dialog=false">Cancelar</v-btn>
           <v-btn
             :disabled="!valid"
             class="ma-2"
             tile 
             @click="guardar"
-            color="indigo"
+            outlined color="indigo"
           >
           <v-icon dark left>mdi-content-save-settings</v-icon>
             Guardar

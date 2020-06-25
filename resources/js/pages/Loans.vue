@@ -23,8 +23,9 @@
             {{ item.client.name }}
           </template>
           <template v-slot:item.actions="{ item }">
-                <v-btn color="red" x-small dark
+                <v-btn outlined color="red" x-small dark
                 @click="borrarPrestamo(item)"> 
+                <v-icon left>mdi-trash-can-outline</v-icon>
                     Borrar
                 </v-btn>
             </template>
@@ -75,18 +76,23 @@ import LoanCreateForm from '@/js/components/LoanCreateForm';
                 }
             },
             borrarPrestamo(item){
-                const index = this.loans.indexOf(item)
-                const id = this.loans[index].id;
-                axios.post('api/loans/'+id)
-                    .then(response=>{
-                        this.eliminado=true
-                        this.actualizarTable(this.eliminado)
-                        alert('Borrado')
-                    })
-                    .catch(error=>{
-                        console.log(error)
-                    })
-            }
+                if(confirm("¿Desea borrar este prestamo?"))
+                {
+                    const index = this.loans.indexOf(item)
+                    const id = this.loans[index].id;
+                    axios.post('api/loans/'+id)
+                        .then(response=>{
+                            this.eliminado=true
+                            this.actualizarTable(this.eliminado)
+                            alert('Borrado')
+                        })
+                        .catch(error=>{
+                            console.log(error)
+                        })
+                }else{
+                    alert("OK")
+                }
+            },
         },
     }
 </script>

@@ -94,17 +94,22 @@
                 }
             },
             borrarCliente(item){
-                const index = this.clientes.indexOf(item)
-                const id = this.clientes[index].id;
-                axios.post('api/clients/'+id)
-                    .then(response=>{
-                        this.eliminado=true
-                        this.actualizarTable(this.eliminado)
-                        alert('Borrado')
-                    })
-                    .catch(error=>{
-                        console.log(error)
-                    })
+                if(confirm("¿Desea borrar este prestamo?"))
+                {
+                    const index = this.clientes.indexOf(item)
+                    const id = this.clientes[index].id;
+                    axios.post('api/clients/'+id)
+                        .then(response=>{
+                            this.eliminado=true
+                            this.actualizarTable(this.eliminado)
+                            alert('Borrado')
+                        })
+                        .catch(error=>{
+                            console.log(error)
+                        })
+                }else{
+                    alert("OK")
+                }
             },
             abrirForm(){
                 this.openModal = true

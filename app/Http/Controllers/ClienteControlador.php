@@ -118,7 +118,6 @@ class ClienteControlador extends Controller
     }
     public function ImportExcel(Request $request)
     {
-        dd("Hey");
         try{
             Excel::import(new Importar, request()->file('file'));
         }catch(\Exception $ex){

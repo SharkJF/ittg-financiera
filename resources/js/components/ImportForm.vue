@@ -7,7 +7,7 @@
           v-on="on"
           class="ma-2"
           outlined color="indigo">
-          <v-icon dark left>mdi-arrow-up-bold-box</v-icon>
+          <v-icon dark>mdi-arrow-up-bold-box</v-icon>
           Importar
         </v-btn>
       </template>
@@ -16,31 +16,24 @@
           <span class="headline"><strong>Seleccionar archivo</strong></span>
         </v-card-title>
         <v-container>
+          <v-text-field
+                 placeholder="Después de subir el archivo, presione cerrar"
+                 outlined
+                 disabled
+                 prepend-inner-icon="mdi-arrow-up-bold-circle"
+                 required>
+                </v-text-field>
             <template>
-            <v-file-input
-                v-model="files"
-                placeholder="Upload your documents"
-                label="File input"
-                multiple
-                prepend-icon="mdi-paperclip"
-                outlined
-            >
-                <template v-slot:selection="{ text }">
-                <v-chip
-                    small
-                    label
-                    color="indigo"
-                >
-                    {{ text }}
-                </v-chip>
-                </template>
-            </v-file-input>
-        </template>
+              <div class="col-sm-10">
+                <input type="file" id="file" ref="file" v-on:change="handleFileUpload()" accept=".XLSX, .CSV" class="form-control">
+              </div>
+            </template>
         </v-container>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="blue darken-1" text @click="cerrar">Close</v-btn>
-          <v-btn color="blue darken-1" text v-on:click="importar">Save</v-btn>
+          <v-btn outlined color="indigo" text @click="actualizarTable">Cerrar</v-btn>
+          <v-btn class="ma-2" outlined color="indigo" text v-on:click="EventSubir">
+          <v-icon dark left>mdi-content-save-settings</v-icon>Subir</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -48,23 +41,39 @@
 <script>
     export default {
        name: 'ImportForm',
-       data: () => ({
-      files: [],
-      dialog: false,
-    }),
+        data: () => ({
+          file: '',
+          dialog: false,
+          update: false,
+      }),
        methods: {
-           importar(){
-                axios.post('api/clients/import')
-                    .then(response=>{
-                        alert('Añadidos')
-                    })
-                    .catch(error=>{
-                        console.log(error)
-                    })
+        actualizarTable(){
+              this.dialog=false
+              this.update = true
+              this.$emit('updTable',this.update)
+              
             },
-            cerrar(){
-                this.dialog = false
-            }
+         EventSubir(){
+            let formData = new FormData();
+            formData.append('file', this.file);
+            axios
+                .post( '/api/import-excel-personas',
+                    formData, {
+                        headers: {
+                            'Content-Type': 'multipart/form-data'
+                        }
+                    }
+                ).then(function(){
+                   console.log("Importado")
+                })
+                .catch(function(){
+                    console.log("Error en importar")
+                });
+        },
+        handleFileUpload(){
+            this.file = this.$refs.file.files[0];
+        }
+        
        }
     }
 </script>

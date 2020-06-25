@@ -67,7 +67,11 @@ class PagoControlador extends Controller
         $pagos = PagosRealizados::where('prestamo_id',$id)->orderBy('number')->get();
         return response()->json($pagos);
     }
-
+    public function giveInfo($id)
+    {
+        $prestamos = Prestamo::with('client')->where('id',$id)->get();
+        return response()->json($prestamos);
+    }
     /**
      * Show the form for editing the specified resource.
      *

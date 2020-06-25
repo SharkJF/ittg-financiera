@@ -8,10 +8,14 @@
       <p class="display-1 text--primary">
         No. de clientes:
       </p>
-      <p>adjective</p>
+      <v-text-field
+      v-model="nocliente"
+      disabled
+      outlined
+       prepend-icon="mdi-account-group"
+      label="Cantidad"
+      ></v-text-field>
     </v-card-text>
-    <v-card-actions>
-    </v-card-actions>
   </v-card>
 </template>
 <script>
@@ -21,11 +25,11 @@ export default {
         this.getNumberClients()
     },
     data: () => ({
-        noCliente:''
+        nocliente:''
     }),
-    methos:{
+    methods:{
         getNumberClients(){
-            axios.get('api/clients/noclientes')
+            axios.get('api/home/noclientes')
                 .then(response=>{
                     this.nocliente= response.data
                     console.log(response.data)

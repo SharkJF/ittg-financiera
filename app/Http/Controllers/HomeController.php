@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Client;
 
 class HomeController extends Controller
 {
@@ -23,7 +24,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-        dd("Holi");
         $num_clients = Client::select('id')->count();
         return response()->json($num_clients);
     }

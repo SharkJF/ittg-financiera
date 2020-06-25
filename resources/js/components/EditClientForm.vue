@@ -1,4 +1,9 @@
-<template>  
+<template> 
+<v-form
+    ref="form"
+    v-model="valid"
+    lazy-validation
+  > 
     <v-dialog v-model="open" persistent max-width="600px">
       
       <v-card>
@@ -11,7 +16,10 @@
                 <v-text-field
                  v-model="value.name"
                  label="Nombre" 
-                 type="text" 
+                 type="text"
+                 outlined
+                 :rules="nameRules"
+                 prepend-icon="mdi-format-text"
                  required>
                 </v-text-field>
               </v-col>
@@ -20,6 +28,9 @@
                  v-model="value.phone"
                  label="Telefono" 
                  type="number" 
+                 outlined
+                 :rules="nameRules"
+                 prepend-icon="mdi-phone"
                  required>
                 </v-text-field>
               </v-col>
@@ -28,6 +39,9 @@
                  v-model="value.address" 
                  label="Direccion" 
                  type="text" 
+                 outlined
+                 :rules="nameRules"
+                 prepend-icon="mdi-map-marker"
                  required>
                 </v-text-field>
               </v-col>
@@ -35,23 +49,40 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="blue darken-1" text @click="cerrarForm">Close</v-btn>
-          <v-btn color="blue darken-1" text v-on:click="updateClient">Save</v-btn>
+          <v-btn outlined color="indigo" text @click="cerrarForm">Close</v-btn>
+          <v-btn :disabled="!valid"
+            class="ma-2"
+            color="indigo"
+            tile  text v-on:click="updateClient">
+            <v-icon dark left>mdi-content-save-settings</v-icon>
+            Save</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
+</v-form>
 </template>
 <script>
     export default {
        name: 'EditClientForm',
        data: () => ({
           dialog: false,
+          valid:true,
            cliente:{
               name:'',
               phone:'',
               address:''
            },
            update: false,
+           nameRules:[
+              v => !!v || 'Name is required',
+           ],
+           phoneRules:[
+              v => !!v || 'Phone is required',
+              v => (v && v.length >= 10) || 'Phone must be more than 10 characters',
+           ],
+           addressRules:[
+              v => !!v || 'Address is required',
+           ],
        }),
        props:{
          value:{
